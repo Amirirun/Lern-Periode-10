@@ -5,7 +5,15 @@
 ## Grob-Planung
 
 1. Welche 2 Projekte haben Sie bereits auf Ihrem github, welche Sie verlinken könnten? (Lassen Sie einen Platzhalter)
+
+https://github.com/Amirirun/Lern-Periode-9
+
+https://github.com/Amirirun/Lern-Periode-8
+
+
 2. Wie sieht Ihr *skill portfolio* aus? Was können Sie bereits, und was wäre etwas, das Sie lernen möchten?
+
+ Ich kann i
 
 ## 22.5.
 
