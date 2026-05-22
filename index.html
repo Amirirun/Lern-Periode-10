@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navidoo Lounge – Projekte</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #070b14;
+      --bg-soft: #0c1222;
+      --card: rgba(18, 24, 43, 0.76);
+      --card-border: rgba(114, 140, 255, 0.18);
+      --text: #f7f8ff;
+      --muted: #8f9bb7;
+      --blue: #6d8cff;
+      --purple: #8b5cf6;
+      --cyan: #38bdf8;
+      --danger: #f87171;
+      --glow: rgba(109, 140, 255, 0.35);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 15%, rgba(109, 140, 255, 0.15), transparent 34%),
+        radial-gradient(circle at 80% 25%, rgba(139, 92, 246, 0.16), transparent 32%),
+        radial-gradient(circle at 50% 90%, rgba(56, 189, 248, 0.08), transparent 30%),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, transparent, black 18%, black 72%, transparent);
+      opacity: 0.35;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .navbar {
+      height: 86px;
+      width: 100%;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.11);
+      backdrop-filter: blur(18px);
+      background: rgba(7, 11, 20, 0.72);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 100%;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      color: var(--blue);
+      font-size: clamp(1.1rem, 2vw, 1.55rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-decoration: none;
+      text-shadow: 0 0 24px rgba(109, 140, 255, 0.45);
+    }
+
+    .nav-button {
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 12px 20px;
+      border: 1px solid rgba(109, 140, 255, 0.28);
+      border-radius: 16px;
+      background: rgba(109, 140, 255, 0.08);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.25s ease;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(109, 140, 255, 0.25);
+      border-color: rgba(109, 140, 255, 0.6);
+    }
+
+    .hero {
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px 110px;
+      text-align: center;
+      position: relative;
+    }
+
+    .orb {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(109, 140, 255, 0.22), rgba(139, 92, 246, 0.14));
+      filter: blur(34px);
+      animation: float 7s ease-in-out infinite;
+      opacity: 0.8;
+    }
+
+    .orb.one { top: 120px; left: 12%; }
+    .orb.two { bottom: 80px; right: 12%; animation-delay: -3s; }
+
+    .hero-content {
+      max-width: 930px;
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 24px;
+      margin-bottom: 38px;
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(22, 28, 51, 0.72);
+      border: 1px solid rgba(109, 140, 255, 0.3);
+      box-shadow: inset 0 0 24px rgba(109, 140, 255, 0.08), 0 0 35px rgba(109, 140, 255, 0.12);
+      font-weight: 700;
+    }
+
+    .badge span {
+      color: var(--blue);
+    }
+
+    h1 {
+      font-size: clamp(4rem, 9vw, 7.6rem);
+      line-height: 0.93;
+      letter-spacing: -0.08em;
+      margin-bottom: 36px;
+      font-weight: 900;
+    }
+
+    .gradient-text {
+      background: linear-gradient(120deg, var(--blue), var(--purple), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: hue 5s linear infinite;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(1.15rem, 2vw, 1.7rem);
+      line-height: 1.65;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .stats {
+      margin-top: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      color: #91a0c0;
+      font-size: 1.1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(109, 140, 255, 0.35);
+    }
+
+    .projects {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 32px 110px;
+    }
+
+    .section-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-top h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: -0.06em;
+    }
+
+    .section-top p {
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      min-height: 430px;
+      border-radius: 24px;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(180deg, rgba(19, 25, 45, 0.88), rgba(12, 16, 31, 0.88));
+      overflow: hidden;
+      position: relative;
+      transition: 0.35s ease;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.22);
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.2s; }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 0%), rgba(109, 140, 255, 0.26), transparent 32%);
+      opacity: 0;
+      transition: 0.3s ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(109, 140, 255, 0.45);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.36), 0 0 40px rgba(109, 140, 255, 0.12);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .preview {
+      height: 205px;
+      background:
+        linear-gradient(135deg, rgba(109, 140, 255, 0.14), rgba(139, 92, 246, 0.12)),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: auto, 28px 28px, 28px 28px;
+      position: relative;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .preview::after {
+      content: "Projekt-Bild";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(247, 248, 255, 0.32);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-weight: 700;
+    }
+
+    .card-body {
+      padding: 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: 0 0 28px rgba(109, 140, 255, 0.28);
+    }
+
+    .card h3 {
+      font-size: 1.6rem;
+      letter-spacing: -0.04em;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 1.03rem;
+      margin-bottom: 22px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .tag {
+      padding: 8px 13px;
+      border-radius: 12px;
+      color: #aab6d3;
+      background: rgba(109, 140, 255, 0.11);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.86rem;
+      border: 1px solid rgba(109, 140, 255, 0.07);
+    }
+
+    .repo-btn {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #b7c1dc;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 15px;
+      background: rgba(109, 140, 255, 0.12);
+      transition: 0.25s ease;
+      font-weight: 700;
+    }
+
+    .repo-btn:hover {
+      color: white;
+      background: rgba(109, 140, 255, 0.22);
+      transform: translateX(4px);
+    }
+
+    .empty-card {
+      border-style: dashed;
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      background: rgba(12, 18, 34, 0.45);
+    }
+
+    .empty-card strong {
+      color: white;
+      font-size: 1.35rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(26px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-22px) scale(1.06); }
+    }
+
+    @keyframes hue {
+      from { filter: hue-rotate(0deg); }
+      to { filter: hue-rotate(360deg); }
+    }
+
+    @media (max-width: 1000px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-top { align-items: start; flex-direction: column; }
+    }
+
+    @media (max-width: 680px) {
+      .nav-inner { padding: 0 18px; }
+      .nav-button { padding: 10px 14px; font-size: 0.95rem; }
+      .hero { padding-top: 58px; }
+      .grid { grid-template-columns: 1fr; }
+      .projects { padding-inline: 18px; }
+      .badge { font-size: 0.9rem; }
+      .stats { gap: 18px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">&lt;Navidoo Lounge /&gt;</a>
+      <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+        <a href="#home" class="nav-button">⌂ Home</a>
+        <a href="#projects" class="nav-button">💻 Projekte</a>
+        <a href="#about" class="nav-button">👤 About</a>
+        <a href="#contact" class="nav-button">✉ Kontakt</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+
+    <div class="hero-content">
+      <div class="badge">
+        <span>&gt;_</span>
+        Ein Einblick in <span>Navids</span> Programmierhöhle
+      </div>
+
+      <h1><span class="gradient-text">Meine</span> Projekte</h1>
+
+      <p>
+        Eine Sammlung von Projekten aus meiner Lernreise als Entwickler — von Games
+        über Web-Tools bis hin zu kreativen Coding-Experimenten.
+      </p>
+
+      <div class="stats">
+        <div class="stat">&lt;/&gt; <span>0 Projekte</span></div>
+        <div class="dot"></div>
+        <div class="stat">C#, Python, Godot & JavaScript</div>
+      </div>
+    </div>
+  </header>
+
+  <section id="about" style="max-width:1400px;margin:0 auto;padding:40px 32px 90px;">
+    <div style="border:1px solid rgba(109,140,255,0.18);background:rgba(12,18,34,0.7);border-radius:28px;padding:40px;backdrop-filter:blur(14px);box-shadow:0 20px 60px rgba(0,0,0,0.22);">
+      <div style="display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between;">
+        <div style="max-width:720px;">
+          <div class="badge" style="margin-bottom:22px;">⚡ Mein Leitsatz</div>
+          <h2 style="font-size:clamp(2.6rem,5vw,4.5rem);margin-bottom:20px;letter-spacing:-0.07em;line-height:1;">
+            Navid Amiri —<br>
+            <span class="gradient-text">ihr nächster Praktikant.</span>
+          </h2>
+        </div>
+
+        <div style="width:240px;height:240px;border-radius:30px;background:linear-gradient(135deg, rgba(109,140,255,0.28), rgba(139,92,246,0.18));border:1px solid rgba(109,140,255,0.25);display:grid;place-items:center;font-size:5rem;box-shadow:0 0 50px rgba(109,140,255,0.18);">
+          ⚡
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="projects" id="projects">
+    <div class="section-top">
+      <div>
+        <h2>Projektübersicht</h2>
+      </div>
+      
+    </div>
+
+    <section class="grid">
+      <article class="card">
+        <div class="preview"></div>
+        <div class="card-body">
+          <div class="card-title">
+            <div class="icon-box">⌘</div>
+            <h3>Projektname</h3>
+          </div>
+          
+          <div class="tags">
+            <span class="tag">Technologie</span>
+            <span class="tag">Tool</span>
+            <span class="tag">Feature</span>
+          </div>
+          <a href="#" class="repo-btn">GitHub Repository ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="preview"></div>
+        <div class="card-body">
+          <div class="card-title">
+            <div class="icon-box">⚡</div>
+            <h3>Projektname</h3>
+          </div>
+          
+          <div class="tags">
+            <span class="tag">Technologie</span>
+            <span class="tag">Tool</span>
+          </div>
+          <a href="#" class="repo-btn">GitHub Repository ↗</a>
+        </div>
+      </article>
+
+      
+    </section>
+  </main>
+
+  <section id="contact" style="max-width:1400px;margin:0 auto;padding:0 32px 120px;">
+    <div style="position:relative;overflow:hidden;border-radius:32px;padding:60px 40px;background:linear-gradient(135deg, rgba(109,140,255,0.18), rgba(139,92,246,0.12));border:1px solid rgba(109,140,255,0.22);">
+      <div style="position:absolute;top:-120px;right:-120px;width:300px;height:300px;border-radius:999px;background:rgba(109,140,255,0.18);filter:blur(40px);"></div>
+
+      <div style="position:relative;z-index:2;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center;">
+        <div style="max-width:700px;">
+          <div class="badge" style="margin-bottom:20px;">🚀 Let's build something</div>
+          <h2 style="font-size:clamp(2.4rem,5vw,4.5rem);line-height:1;letter-spacing:-0.07em;margin-bottom:24px;">
+            Bereit für das nächste Projekt?
+          </h2>
+          <p style="color:#b6c0da;font-size:1.12rem;line-height:1.8;">
+            Hier kannst du später deine Socials, GitHub-Links oder Kontaktmöglichkeiten einbauen.
+          </p>
+        </div>
+
+        <a href="#" class="repo-btn" style="font-size:1.05rem;padding:18px 28px;border-radius:18px;">
+          Kontakt aufnehmen ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      });
+    });
+  </script>
+</body>
+</html>
