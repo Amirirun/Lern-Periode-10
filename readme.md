@@ -13,7 +13,7 @@ https://github.com/Amirirun/Lern-Periode-8
 
 2. Wie sieht Ihr *skill portfolio* aus? Was können Sie bereits, und was wäre etwas, das Sie lernen möchten?
 
- Ich kann i
+ Ich kann bereits die Programmiersprachen C #, Python, SQL, Javascript, Godot. Ich möchte mehr in das Thema Cybersecurity einsteigen.
 
 ## 22.5.
 
