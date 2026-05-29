@@ -26,15 +26,18 @@ https://github.com/Amirirun/Lern-Periode-8
   - [x] Einige Kern-Eigenschaften aufschreiben, die mich ausmachen.
   - [x] Evidenz für diese Eigenschaften finden und ausformulieren
   - [x] Rechtschreibeprüfung
+     
 
 ☝️ Vergessen Sie nicht, einen ersten Entwurf Ihrer Start-Seite in der entsprechenden Ablage hochzuladen.
 
 ## 29.5.
 
-- [ ] Meine Projekte einfügen
-- [ ] Kontakte ausfüllen
-- [ ] Guthub verlinken
-- [ ] EIn kleines About Me
+- [x] Meine Projekte einfügen
+- [x] Kontakte ausfüllen
+- [x] Github verlinken
+- [x] Kleine Projektbeschreibung
+
+Heute habe ich an meiner personalisierten Website weitergearbeitet. Ich habe meine Projekte eingefügt mit einer kleinen Projektbeschreibung eingefügt, die Kontakte ausgefüllt und mein Github verlinkt.
 
 ☝️ Vergessen Sie nicht, die angepasste Version Ihrer Start-Seite in der entsprechenden Ablage hochzuladen.
 
