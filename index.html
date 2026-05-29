@@ -14,16 +14,12 @@
 
     :root {
       --bg: #070b14;
-      --bg-soft: #0c1222;
-      --card: rgba(18, 24, 43, 0.76);
       --card-border: rgba(114, 140, 255, 0.18);
       --text: #f7f8ff;
       --muted: #8f9bb7;
       --blue: #6d8cff;
       --purple: #8b5cf6;
       --cyan: #38bdf8;
-      --danger: #f87171;
-      --glow: rgba(109, 140, 255, 0.35);
     }
 
     html {
@@ -37,22 +33,8 @@
       background:
         radial-gradient(circle at 20% 15%, rgba(109, 140, 255, 0.15), transparent 34%),
         radial-gradient(circle at 80% 25%, rgba(139, 92, 246, 0.16), transparent 32%),
-        radial-gradient(circle at 50% 90%, rgba(56, 189, 248, 0.08), transparent 30%),
         var(--bg);
       overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 56px 56px;
-      mask-image: linear-gradient(to bottom, transparent, black 18%, black 72%, transparent);
-      opacity: 0.35;
     }
 
     .noise {
@@ -85,34 +67,21 @@
     }
 
     .logo {
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-family: Consolas, monospace;
       color: var(--blue);
-      font-size: clamp(1.1rem, 2vw, 1.55rem);
+      font-size: 1.5rem;
       font-weight: 800;
-      letter-spacing: -0.04em;
       text-decoration: none;
-      text-shadow: 0 0 24px rgba(109, 140, 255, 0.45);
     }
 
     .nav-button {
       color: var(--blue);
       text-decoration: none;
-      font-size: 1rem;
       font-weight: 700;
       padding: 12px 20px;
       border: 1px solid rgba(109, 140, 255, 0.28);
       border-radius: 16px;
       background: rgba(109, 140, 255, 0.08);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: 0.25s ease;
-    }
-
-    .nav-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 30px rgba(109, 140, 255, 0.25);
-      border-color: rgba(109, 140, 255, 0.6);
     }
 
     .hero {
@@ -133,17 +102,22 @@
       background: linear-gradient(135deg, rgba(109, 140, 255, 0.22), rgba(139, 92, 246, 0.14));
       filter: blur(34px);
       animation: float 7s ease-in-out infinite;
-      opacity: 0.8;
     }
 
-    .orb.one { top: 120px; left: 12%; }
-    .orb.two { bottom: 80px; right: 12%; animation-delay: -3s; }
+    .orb.one {
+      top: 120px;
+      left: 12%;
+    }
+
+    .orb.two {
+      bottom: 80px;
+      right: 12%;
+    }
 
     .hero-content {
       max-width: 930px;
       position: relative;
       z-index: 2;
-      animation: fadeUp 0.9s ease both;
     }
 
     .badge {
@@ -153,10 +127,8 @@
       padding: 13px 24px;
       margin-bottom: 38px;
       border-radius: 999px;
-      color: var(--text);
       background: rgba(22, 28, 51, 0.72);
       border: 1px solid rgba(109, 140, 255, 0.3);
-      box-shadow: inset 0 0 24px rgba(109, 140, 255, 0.08), 0 0 35px rgba(109, 140, 255, 0.12);
       font-weight: 700;
     }
 
@@ -177,12 +149,11 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: hue 5s linear infinite;
     }
 
     .hero p {
       color: var(--muted);
-      font-size: clamp(1.15rem, 2vw, 1.7rem);
+      font-size: 1.4rem;
       line-height: 1.65;
       max-width: 850px;
       margin: 0 auto;
@@ -191,18 +162,11 @@
     .stats {
       margin-top: 52px;
       display: flex;
-      align-items: center;
       justify-content: center;
       gap: 28px;
       color: #91a0c0;
       font-size: 1.1rem;
       flex-wrap: wrap;
-    }
-
-    .stat {
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .dot {
@@ -218,23 +182,9 @@
       padding: 0 32px 110px;
     }
 
-    .section-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-
     .section-top h2 {
       font-size: clamp(2rem, 4vw, 3.4rem);
-      letter-spacing: -0.06em;
-    }
-
-    .section-top p {
-      color: var(--muted);
-      max-width: 520px;
-      line-height: 1.7;
+      margin-bottom: 28px;
     }
 
     .grid {
@@ -252,58 +202,22 @@
       position: relative;
       transition: 0.35s ease;
       box-shadow: 0 20px 70px rgba(0, 0, 0, 0.22);
-      animation: fadeUp 0.9s ease both;
-    }
-
-    .card:nth-child(2) { animation-delay: 0.1s; }
-    .card:nth-child(3) { animation-delay: 0.2s; }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 0%), rgba(109, 140, 255, 0.26), transparent 32%);
-      opacity: 0;
-      transition: 0.3s ease;
-      pointer-events: none;
     }
 
     .card:hover {
       transform: translateY(-10px);
       border-color: rgba(109, 140, 255, 0.45);
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.36), 0 0 40px rgba(109, 140, 255, 0.12);
-    }
-
-    .card:hover::before {
-      opacity: 1;
     }
 
     .preview {
       height: 205px;
-      background:
-        linear-gradient(135deg, rgba(109, 140, 255, 0.14), rgba(139, 92, 246, 0.12)),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: auto, 28px 28px, 28px 28px;
-      position: relative;
+      background-position: center;
+      background-size: cover;
       border-bottom: 1px solid rgba(148, 163, 184, 0.08);
-    }
-
-    .preview::after {
-      content: "Projekt-Bild";
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      color: rgba(247, 248, 255, 0.32);
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-weight: 700;
     }
 
     .card-body {
       padding: 28px;
-      position: relative;
-      z-index: 2;
     }
 
     .card-title {
@@ -320,12 +234,11 @@
       display: grid;
       place-items: center;
       background: linear-gradient(135deg, var(--blue), var(--purple));
-      box-shadow: 0 0 28px rgba(109, 140, 255, 0.28);
+      font-size: 1.5rem;
     }
 
     .card h3 {
       font-size: 1.6rem;
-      letter-spacing: -0.04em;
     }
 
     .card p {
@@ -347,97 +260,79 @@
       border-radius: 12px;
       color: #aab6d3;
       background: rgba(109, 140, 255, 0.11);
-      font-family: "SFMono-Regular", Consolas, monospace;
+      font-family: Consolas, monospace;
       font-size: 0.86rem;
-      border: 1px solid rgba(109, 140, 255, 0.07);
     }
 
     .repo-btn {
-      width: fit-content;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
       color: #b7c1dc;
       text-decoration: none;
       padding: 12px 18px;
       border-radius: 15px;
       background: rgba(109, 140, 255, 0.12);
-      transition: 0.25s ease;
       font-weight: 700;
     }
 
     .repo-btn:hover {
       color: white;
       background: rgba(109, 140, 255, 0.22);
-      transform: translateX(4px);
-    }
-
-    .empty-card {
-      border-style: dashed;
-      min-height: 430px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 30px;
-      color: var(--muted);
-      background: rgba(12, 18, 34, 0.45);
-    }
-
-    .empty-card strong {
-      color: white;
-      font-size: 1.35rem;
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(26px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-22px) scale(1.06); }
-    }
-
-    @keyframes hue {
-      from { filter: hue-rotate(0deg); }
-      to { filter: hue-rotate(360deg); }
     }
 
     @media (max-width: 1000px) {
-      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .section-top { align-items: start; flex-direction: column; }
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 680px) {
-      .nav-inner { padding: 0 18px; }
-      .nav-button { padding: 10px 14px; font-size: 0.95rem; }
-      .hero { padding-top: 58px; }
-      .grid { grid-template-columns: 1fr; }
-      .projects { padding-inline: 18px; }
-      .badge { font-size: 0.9rem; }
-      .stats { gap: 18px; }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-inner {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .navbar {
+        height: auto;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-22px);
+      }
     }
   </style>
 </head>
 
 <body>
+
   <div class="noise"></div>
 
   <nav class="navbar">
     <div class="nav-inner">
       <a href="#" class="logo">&lt;Navidoo Lounge /&gt;</a>
+
       <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
         <a href="#home" class="nav-button">⌂ Home</a>
         <a href="#projects" class="nav-button">💻 Projekte</a>
         <a href="#about" class="nav-button">👤 About</a>
         <a href="#contact" class="nav-button">✉ Kontakt</a>
+        <a href="https://github.com/Amirirun" target="_blank" class="nav-button">💻 GitHub</a>
       </div>
     </div>
   </nav>
 
-  <header class="hero">
+  <header class="hero" id="home">
     <div class="orb one"></div>
     <div class="orb two"></div>
 
@@ -455,25 +350,31 @@
       </p>
 
       <div class="stats">
-        <div class="stat">&lt;/&gt; <span>0 Projekte</span></div>
+        <div>&lt;/&gt; <span>5 Projekte</span></div>
         <div class="dot"></div>
-        <div class="stat">C#, Python, Godot & JavaScript</div>
+        <div>C#, Python, Godot & JavaScript</div>
       </div>
     </div>
   </header>
 
   <section id="about" style="max-width:1400px;margin:0 auto;padding:40px 32px 90px;">
-    <div style="border:1px solid rgba(109,140,255,0.18);background:rgba(12,18,34,0.7);border-radius:28px;padding:40px;backdrop-filter:blur(14px);box-shadow:0 20px 60px rgba(0,0,0,0.22);">
+    <div style="border:1px solid rgba(109,140,255,0.18);background:rgba(12,18,34,0.7);border-radius:28px;padding:40px;">
       <div style="display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between;">
-        <div style="max-width:720px;">
-          <div class="badge" style="margin-bottom:22px;">⚡ Mein Leitsatz</div>
-          <h2 style="font-size:clamp(2.6rem,5vw,4.5rem);margin-bottom:20px;letter-spacing:-0.07em;line-height:1;">
+        <div>
+          <div class="badge">⚡ Mein Leitsatz</div>
+          <h2 style="font-size:clamp(2.6rem,5vw,4.5rem);line-height:1;">
             Navid Amiri —<br>
             <span class="gradient-text">ihr nächster Praktikant.</span>
           </h2>
+
+          <div style="margin-top:25px;">
+            <a href="https://github.com/Amirirun" target="_blank" class="repo-btn">
+              💻 Mein GitHub Profil ↗
+            </a>
+          </div>
         </div>
 
-        <div style="width:240px;height:240px;border-radius:30px;background:linear-gradient(135deg, rgba(109,140,255,0.28), rgba(139,92,246,0.18));border:1px solid rgba(109,140,255,0.25);display:grid;place-items:center;font-size:5rem;box-shadow:0 0 50px rgba(109,140,255,0.18);">
+        <div style="width:240px;height:240px;border-radius:30px;background:linear-gradient(135deg, rgba(109,140,255,0.28), rgba(139,92,246,0.18));display:grid;place-items:center;font-size:5rem;">
           ⚡
         </div>
       </div>
@@ -482,85 +383,147 @@
 
   <main class="projects" id="projects">
     <div class="section-top">
-      <div>
-        <h2>Projektübersicht</h2>
-      </div>
-      
+      <h2>Projektübersicht</h2>
     </div>
 
     <section class="grid">
+
       <article class="card">
-        <div class="preview"></div>
+        <div class="preview" style="background-image:url('images/tictactoe.png');"></div>
         <div class="card-body">
           <div class="card-title">
-            <div class="icon-box">⌘</div>
-            <h3>Projektname</h3>
+            <div class="icon-box">🎮</div>
+            <h3>TicTacToe</h3>
           </div>
-          
+          <p>Tic-Tac-Toe mit epischem Design — entwickelt in C# mit WinForms.</p>
           <div class="tags">
-            <span class="tag">Technologie</span>
-            <span class="tag">Tool</span>
-            <span class="tag">Feature</span>
+            <span class="tag">C#</span>
+            <span class="tag">WinForms</span>
           </div>
-          <a href="#" class="repo-btn">GitHub Repository ↗</a>
+          <a href="https://github.com/Amirirun/Lernperiode-4" target="_blank" class="repo-btn">GitHub Repository ↗</a>
         </div>
       </article>
 
       <article class="card">
-        <div class="preview"></div>
+        <div class="preview" style="background-image:url('images/snake.png');"></div>
         <div class="card-body">
           <div class="card-title">
-            <div class="icon-box">⚡</div>
-            <h3>Projektname</h3>
+            <div class="icon-box">🐍</div>
+            <h3>Snake</h3>
           </div>
-          
+          <p>Snake mit Godot Engine entwickelt und mit einer SQLite-Datenbank verbunden.</p>
           <div class="tags">
-            <span class="tag">Technologie</span>
-            <span class="tag">Tool</span>
+            <span class="tag">Godot</span>
+            <span class="tag">GDScript</span>
+            <span class="tag">SQLite</span>
           </div>
-          <a href="#" class="repo-btn">GitHub Repository ↗</a>
+          <a href="https://github.com/Amirirun/Lern-Periode-9" target="_blank" class="repo-btn">GitHub Repository ↗</a>
         </div>
       </article>
 
-      
+      <article class="card">
+        <div class="preview" style="background-image:url('images/battle-arena.png');"></div>
+        <div class="card-body">
+          <div class="card-title">
+            <div class="icon-box">⚔️</div>
+            <h3>Battle Arena</h3>
+          </div>
+          <p>Konsolen-Fighting-Game in C# — kämpfe gegen Gegner in einer rundenbasierten Arena.</p>
+          <div class="tags">
+            <span class="tag">C#</span>
+            <span class="tag">Konsole</span>
+            <span class="tag">OOP</span>
+          </div>
+          <a href="https://github.com/Amirirun/Lernperiode-6" target="_blank" class="repo-btn">GitHub Repository ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="preview" style="background-image:url('images/big-crypt.png');"></div>
+        <div class="card-body">
+          <div class="card-title">
+            <div class="icon-box">₿</div>
+            <h3>Big Crypt</h3>
+          </div>
+          <p>Crypto-App mit CoinCap.io API — zeigt Live-Preise, 24h-Veränderung und Charts.</p>
+          <div class="tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">CoinCap API</span>
+          </div>
+          <a href="https://github.com/Amirirun/Lern-Periode-7/tree/main" target="_blank" class="repo-btn">GitHub Repository ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="preview" style="background-image:url('images/stress-level.png');"></div>
+        <div class="card-body">
+          <div class="card-title">
+            <div class="icon-box">🧠</div>
+            <h3>Stress-Level Predictor</h3>
+          </div>
+          <p>Ein Machine-Learning-Modell, das anhand von Lebensstil-Faktoren das Stresslevel vorhersagt.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">ML</span>
+            <span class="tag">Pandas</span>
+          </div>
+          <a href="https://github.com/Amirirun/smartphone-screentime-stress" target="_blank" class="repo-btn">GitHub Repository ↗</a>
+        </div>
+      </article>
+
     </section>
   </main>
 
-  <section id="contact" style="max-width:1400px;margin:0 auto;padding:0 32px 120px;">
-    <div style="position:relative;overflow:hidden;border-radius:32px;padding:60px 40px;background:linear-gradient(135deg, rgba(109,140,255,0.18), rgba(139,92,246,0.12));border:1px solid rgba(109,140,255,0.22);">
-      <div style="position:absolute;top:-120px;right:-120px;width:300px;height:300px;border-radius:999px;background:rgba(109,140,255,0.18);filter:blur(40px);"></div>
+    <section id="contact" style="max-width:1400px;margin:0 auto;padding:0 32px 120px;">
+    <div style="border-radius:32px;padding:60px 40px;background:linear-gradient(135deg, rgba(109,140,255,0.18), rgba(139,92,246,0.12));border:1px solid rgba(109,140,255,0.22);">
 
-      <div style="position:relative;z-index:2;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center;">
-        <div style="max-width:700px;">
-          <div class="badge" style="margin-bottom:20px;">🚀 Let's build something</div>
-          <h2 style="font-size:clamp(2.4rem,5vw,4.5rem);line-height:1;letter-spacing:-0.07em;margin-bottom:24px;">
-            Bereit für das nächste Projekt?
+      <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:center;">
+
+        <div>
+          <div class="badge">📬 Kontakt</div>
+
+          <h2 style="font-size:clamp(2.4rem,5vw,4.5rem);line-height:1;margin-bottom:20px;">
+            Navid Amiri
           </h2>
-          <p style="color:#b6c0da;font-size:1.12rem;line-height:1.8;">
-            Hier kannst du später deine Socials, GitHub-Links oder Kontaktmöglichkeiten einbauen.
+
+          <p style="color:#b6c0da;font-size:1.1rem;line-height:2;">
+            💻 GitHub:
+            <a href="https://github.com/Amirirun"
+               target="_blank"
+               style="color:#6d8cff;text-decoration:none;">
+               github.com/Amirirun
+            </a>
+          </p>
+
+          <p style="color:#b6c0da;font-size:1.1rem;line-height:2;">
+            ✉ E-Mail:
+            <a href="mailto:Navidoo.Amiri@gmail.com"
+               style="color:#6d8cff;text-decoration:none;">
+               Navidoo.Amiri@gmail.com
+            </a>
           </p>
         </div>
 
-        <a href="#" class="repo-btn" style="font-size:1.05rem;padding:18px 28px;border-radius:18px;">
-          Kontakt aufnehmen ↗
-        </a>
+        <div style="display:flex;gap:15px;flex-wrap:wrap;">
+
+          <a href="https://github.com/Amirirun"
+             target="_blank"
+             class="repo-btn">
+            💻 GitHub Profil ↗
+          </a>
+
+          <a href="mailto:Navidoo.Amiri@gmail.com"
+             class="repo-btn">
+            ✉ E-Mail senden ↗
+          </a>
+
+        </div>
+
       </div>
+
     </div>
   </section>
 
-  <script>
-    const cards = document.querySelectorAll('.card');
-
-    cards.forEach((card) => {
-      card.addEventListener('mousemove', (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-
-        card.style.setProperty('--x', `${x}px`);
-        card.style.setProperty('--y', `${y}px`);
-      });
-    });
-  </script>
 </body>
 </html>
