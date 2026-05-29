@@ -17,7 +17,7 @@ https://github.com/Amirirun/Lern-Periode-8
 
 ## 22.5.
 
-- [ ] Ein Grundgerüst für meine Startseite erstellen. Dieses sollte einen Abholer-Satz und Kontaktinformationen beeinhalten, auf meinen CV verlinken, und einige Projekte in den Vordergrund stellen.
+- [x] Ein Grundgerüst für meine Startseite erstellen. Dieses sollte einen Abholer-Satz und Kontaktinformationen beeinhalten, auf meinen CV verlinken, und einige Projekte in den Vordergrund stellen.
   - [x] Ein ansprechendes Layout für die Startseite auf Papier entworfen, zusammen mit einem "Abholer-Satz", der die Aufmerksamkeit des Praktikumsgebers *in spe* auf sich zieht.
   - [x] Dieses Layout auf rudimentäre Weise mit HTML und CSS umsetzen
 
