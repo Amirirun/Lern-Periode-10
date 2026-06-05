@@ -43,9 +43,9 @@ Heute habe ich an meiner personalisierten Website weitergearbeitet. Ich habe mei
 
 ## 5.6.
 
-- [ ] LinkedIn-Profil erstellen / ausputzen
-- [ ] GitHub-Profil professionalisieren (`readme.md`)
-- [ ] Start-Seite abschliessen
-- [ ] Rückmeldung geben
+- [x] LinkedIn-Profil erstellen / ausputzen
+- [x] GitHub-Profil professionalisieren (`readme.md`)
+- [x] Start-Seite abschliessen
+- [x] Rückmeldung geben
 
-☝️ Vergessen Sie nicht, die fertige Version Ihrer Start-Seite in der entsprechenden Ablage hochzuladen.
+Heute habe ich gelernt, was an meinem Bewerbungsschreiben ausbaufähig ist. Ich kann z.B noch detallierter auf das Unternehmen eingehen und noch ein paar mehr von meinen eigenen Projekten aufzählen. Zudem kann ich es noch ein bisschen personalisieren.
