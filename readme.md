@@ -56,3 +56,11 @@ Heute habe ich gelernt, was an meinem Bewerbungsschreiben ausbaufähig ist. Ich 
 - [x] Kleinen number guesser in Phyton bauen
 
 Heute habe ich einen number guesser in Phyton gebaut. Dabei habe ich die gelernten Basics repetiert und angewendet.
+
+
+## 19.6.
+
+- [ ] Alle Projekte in die Bewerbungswebsite einfügen.
+- [ ] Einen kleinen über mich Text schreiben.
+- [ ] Das Design ausbessern
+- [ ] Mein Github und LinkedIn verlinken.
