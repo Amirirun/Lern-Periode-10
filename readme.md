@@ -49,3 +49,10 @@ Heute habe ich an meiner personalisierten Website weitergearbeitet. Ich habe mei
 - [x] Rückmeldung geben
 
 Heute habe ich gelernt, was an meinem Bewerbungsschreiben ausbaufähig ist. Ich kann z.B noch detallierter auf das Unternehmen eingehen und noch ein paar mehr von meinen eigenen Projekten aufzählen. Zudem kann ich es noch ein bisschen personalisieren.
+
+## 12.6.
+
+- [x] Kleinen number guesser in Phyton bauen
+- [x] Kleinen number guesser in Phyton bauen
+
+Heute habe ich einen number guesser in Phyton gebaut. Dabei habe ich die gelernten Basics repetiert und angewendet.
