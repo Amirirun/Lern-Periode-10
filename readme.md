@@ -60,7 +60,9 @@ Heute habe ich einen number guesser in Phyton gebaut. Dabei habe ich die gelernt
 
 ## 19.6.
 
-- [ ] Alle Projekte in die Bewerbungswebsite einfügen.
-- [ ] Einen kleinen über mich Text schreiben.
-- [ ] Das Design ausbessern
-- [ ] Mein Github und LinkedIn verlinken.
+- [x] Alle Projekte in die Bewerbungswebsite einfügen.
+- [x] Einen kleinen Leitsatz schreiben.
+- [x] Das Design ausbessern
+- [x] Mein Github und LinkedIn verlinken.
+
+Heute habe ich das Design meiner Website verändert, alle Projekte eingefügt sowie einen kleinen Leitsatz. Zudem habe ich noch mein Github und LinkedIn auf der Website verlinkt.
