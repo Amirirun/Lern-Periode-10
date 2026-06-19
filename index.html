@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Navidoo Lounge – Projekte</title>
+  <title>Navidoo Terminal – Projekte</title>
 
   <style>
     * {
@@ -13,13 +13,18 @@
     }
 
     :root {
-      --bg: #070b14;
-      --card-border: rgba(114, 140, 255, 0.18);
-      --text: #f7f8ff;
-      --muted: #8f9bb7;
-      --blue: #6d8cff;
-      --purple: #8b5cf6;
-      --cyan: #38bdf8;
+      --bg: #020403;
+      --panel: rgba(4, 16, 10, 0.86);
+      --panel-2: rgba(1, 10, 6, 0.82);
+      --green: #00ff88;
+      --green-2: #39ff14;
+      --cyan: #00e5ff;
+      --red: #ff3158;
+      --yellow: #f7ff00;
+      --text: #d8ffe9;
+      --muted: #77a88e;
+      --border: rgba(0, 255, 136, 0.28);
+      --shadow: rgba(0, 255, 136, 0.18);
     }
 
     html {
@@ -28,502 +33,942 @@
 
     body {
       min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Consolas", "Courier New", monospace;
       color: var(--text);
       background:
-        radial-gradient(circle at 20% 15%, rgba(109, 140, 255, 0.15), transparent 34%),
-        radial-gradient(circle at 80% 25%, rgba(139, 92, 246, 0.16), transparent 32%),
+        radial-gradient(circle at 20% 10%, rgba(0, 255, 136, 0.12), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(0, 229, 255, 0.08), transparent 30%),
+        radial-gradient(circle at 55% 90%, rgba(57, 255, 20, 0.08), transparent 36%),
         var(--bg);
       overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(18, 255, 130, 0.035) 50%, rgba(0, 0, 0, 0.08) 50%);
+      background-size: 100% 4px;
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background: radial-gradient(circle, transparent 35%, rgba(0, 0, 0, 0.58) 100%);
+    }
+
+    #matrix {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.26;
+    }
+
+    .page {
+      position: relative;
+      z-index: 3;
     }
 
     .noise {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: 0.04;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.08;
+      z-index: 4;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
     }
 
     .navbar {
-      height: 86px;
       width: 100%;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.11);
+      border-bottom: 1px solid var(--border);
       backdrop-filter: blur(18px);
-      background: rgba(7, 11, 20, 0.72);
+      background: rgba(0, 7, 4, 0.78);
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 20;
+      box-shadow: 0 0 28px rgba(0, 255, 136, 0.08);
     }
 
     .nav-inner {
       max-width: 1400px;
       margin: 0 auto;
-      height: 100%;
-      padding: 0 32px;
+      min-height: 84px;
+      padding: 16px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 24px;
     }
 
     .logo {
-      font-family: Consolas, monospace;
-      color: var(--blue);
-      font-size: 1.5rem;
-      font-weight: 800;
+      color: var(--green);
+      font-size: 1.22rem;
+      font-weight: 900;
       text-decoration: none;
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 14px var(--shadow);
+      white-space: nowrap;
     }
 
-    .nav-button {
-      color: var(--blue);
+    .logo::before {
+      content: "root@navidoo:~$ ";
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .nav-button,
+    .repo-btn {
+      color: var(--green);
       text-decoration: none;
-      font-weight: 700;
-      padding: 12px 20px;
-      border: 1px solid rgba(109, 140, 255, 0.28);
-      border-radius: 16px;
-      background: rgba(109, 140, 255, 0.08);
+      font-weight: 800;
+      padding: 11px 16px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: rgba(0, 255, 136, 0.055);
+      box-shadow: inset 0 0 12px rgba(0, 255, 136, 0.05);
+      transition: 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-button::after,
+    .repo-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-110%);
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.25), transparent);
+      transition: 0.45s ease;
+    }
+
+    .nav-button:hover,
+    .repo-btn:hover {
+      color: #001b0d;
+      background: var(--green);
+      border-color: var(--green);
+      box-shadow: 0 0 22px var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .nav-button:hover::after,
+    .repo-btn:hover::after {
+      transform: translateX(110%);
     }
 
     .hero {
-      min-height: 560px;
+      min-height: 650px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 80px 24px 110px;
+      padding: 86px 24px 105px;
       text-align: center;
       position: relative;
     }
 
-    .orb {
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, rgba(109, 140, 255, 0.22), rgba(139, 92, 246, 0.14));
-      filter: blur(34px);
-      animation: float 7s ease-in-out infinite;
-    }
-
-    .orb.one {
-      top: 120px;
-      left: 12%;
-    }
-
-    .orb.two {
-      bottom: 80px;
-      right: 12%;
-    }
-
     .hero-content {
-      max-width: 930px;
+      max-width: 980px;
       position: relative;
-      z-index: 2;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(2, 18, 10, 0.72), rgba(1, 8, 5, 0.84));
+      padding: clamp(34px, 6vw, 72px);
+      box-shadow: 0 0 60px rgba(0, 255, 136, 0.12), inset 0 0 45px rgba(0, 255, 136, 0.035);
+      clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 34px 100%, 0 calc(100% - 34px));
+    }
+
+    .terminal-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding-bottom: 22px;
+      margin-bottom: 34px;
+      border-bottom: 1px solid rgba(0, 255, 136, 0.18);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 9px;
+    }
+
+    .terminal-dots span {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      display: block;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--shadow);
+    }
+
+    .terminal-dots span:nth-child(2) {
+      background: var(--yellow);
+    }
+
+    .terminal-dots span:nth-child(3) {
+      background: var(--red);
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      padding: 13px 24px;
-      margin-bottom: 38px;
-      border-radius: 999px;
-      background: rgba(22, 28, 51, 0.72);
-      border: 1px solid rgba(109, 140, 255, 0.3);
-      font-weight: 700;
+      padding: 12px 20px;
+      margin-bottom: 28px;
+      border-radius: 2px;
+      background: rgba(0, 255, 136, 0.07);
+      border: 1px solid rgba(0, 255, 136, 0.24);
+      font-weight: 800;
+      color: var(--text);
+      box-shadow: inset 0 0 18px rgba(0, 255, 136, 0.06);
     }
 
     .badge span {
-      color: var(--blue);
+      color: var(--green);
+      text-shadow: 0 0 10px var(--shadow);
     }
 
     h1 {
-      font-size: clamp(4rem, 9vw, 7.6rem);
-      line-height: 0.93;
-      letter-spacing: -0.08em;
-      margin-bottom: 36px;
-      font-weight: 900;
+      font-size: clamp(3.3rem, 9vw, 7.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      margin-bottom: 28px;
+      font-weight: 950;
+      text-transform: uppercase;
     }
 
-    .gradient-text {
-      background: linear-gradient(120deg, var(--blue), var(--purple), var(--cyan));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .glitch {
+      position: relative;
+      color: var(--green);
+      text-shadow:
+        0 0 12px rgba(0, 255, 136, 0.55),
+        0 0 42px rgba(0, 255, 136, 0.22);
+      animation: glitch-skew 3s infinite linear alternate-reverse;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .glitch::before {
+      left: 3px;
+      text-shadow: -2px 0 var(--cyan);
+      clip-path: inset(0 0 52% 0);
+      animation: glitch 2.1s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      left: -3px;
+      text-shadow: 2px 0 var(--red);
+      clip-path: inset(48% 0 0 0);
+      animation: glitch 1.55s infinite linear alternate-reverse;
     }
 
     .hero p {
-      color: var(--muted);
-      font-size: 1.4rem;
-      line-height: 1.65;
+      color: #a6f5c8;
+      font-size: clamp(1rem, 2vw, 1.28rem);
+      line-height: 1.75;
       max-width: 850px;
       margin: 0 auto;
     }
 
+    .cursor {
+      color: var(--green);
+      animation: blink 0.8s step-end infinite;
+    }
+
     .stats {
-      margin-top: 52px;
+      margin-top: 42px;
       display: flex;
       justify-content: center;
-      gap: 28px;
-      color: #91a0c0;
-      font-size: 1.1rem;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 1rem;
       flex-wrap: wrap;
     }
 
-    .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 999px;
-      background: rgba(109, 140, 255, 0.35);
+    .stat-pill {
+      border: 1px solid rgba(0, 255, 136, 0.18);
+      background: rgba(0, 255, 136, 0.045);
+      padding: 10px 13px;
+      border-radius: 3px;
     }
 
-    .projects {
+    .section {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 32px 110px;
+      padding: 0 32px 98px;
+    }
+
+    .terminal-panel {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      box-shadow: 0 0 50px rgba(0, 255, 136, 0.10);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid rgba(0, 255, 136, 0.18);
+      color: var(--muted);
+      background: rgba(0, 255, 136, 0.045);
+    }
+
+    .panel-body {
+      padding: clamp(26px, 4vw, 42px);
+    }
+
+    .about-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) 320px;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .terminal-line {
+      color: var(--text);
+      line-height: 1.9;
+      font-size: 1.08rem;
+    }
+
+    .prompt {
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .avatar-terminal {
+      min-height: 260px;
+      border: 1px solid rgba(0, 255, 136, 0.22);
+      background:
+        linear-gradient(90deg, rgba(0,255,136,0.07) 1px, transparent 1px),
+        linear-gradient(rgba(0,255,136,0.07) 1px, transparent 1px),
+        rgba(0, 15, 8, 0.6);
+      background-size: 22px 22px;
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      text-align: center;
+      padding: 26px;
+      text-shadow: 0 0 20px var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar-terminal::before {
+      content: "</>";
+      font-size: 5.4rem;
+      font-weight: 950;
+    }
+
+    .avatar-terminal::after {
+      content: "ACCESS GRANTED";
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      border: 1px solid rgba(0, 255, 136, 0.28);
+      padding: 10px;
+      font-weight: 900;
+      color: var(--green);
+      background: rgba(0, 0, 0, 0.32);
+    }
+
+    .section-top {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 26px;
+      margin-bottom: 28px;
     }
 
     .section-top h2 {
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      margin-bottom: 28px;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      color: var(--green);
+      text-shadow: 0 0 20px var(--shadow);
+      text-transform: uppercase;
+    }
+
+    .section-top p {
+      color: var(--muted);
+      max-width: 570px;
+      line-height: 1.7;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 28px;
+      gap: 24px;
     }
 
     .card {
-      min-height: 430px;
-      border-radius: 24px;
-      border: 1px solid var(--card-border);
-      background: linear-gradient(180deg, rgba(19, 25, 45, 0.88), rgba(12, 16, 31, 0.88));
+      min-height: 455px;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 255, 136, 0.22);
+      background: linear-gradient(180deg, rgba(3, 18, 10, 0.91), rgba(0, 8, 5, 0.93));
       overflow: hidden;
       position: relative;
-      transition: 0.35s ease;
-      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.22);
+      transition: 0.28s ease;
+      box-shadow: 0 18px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-top: 2px solid rgba(0, 255, 136, 0.5);
+      opacity: 0.55;
+      pointer-events: none;
     }
 
     .card:hover {
-      transform: translateY(-10px);
-      border-color: rgba(109, 140, 255, 0.45);
+      transform: translateY(-9px);
+      border-color: var(--green);
+      box-shadow: 0 0 38px rgba(0, 255, 136, 0.17);
     }
 
     .preview {
-      height: 205px;
-      background-position: center;
-      background-size: cover;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+      height: 190px;
+      padding: 20px;
+      border-bottom: 1px solid rgba(0, 255, 136, 0.15);
+      background:
+        linear-gradient(135deg, rgba(0, 255, 136, 0.10), transparent),
+        rgba(0, 0, 0, 0.28);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview::before {
+      content: attr(data-code);
+      white-space: pre-line;
+      color: rgba(0, 255, 136, 0.75);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    .preview::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -70%;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.13), transparent);
+      animation: sweep 3.5s infinite;
     }
 
     .card-body {
-      padding: 28px;
+      padding: 25px;
     }
 
     .card-title {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 15px;
       margin-bottom: 18px;
     }
 
     .icon-box {
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
+      width: 52px;
+      height: 52px;
+      border-radius: 4px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      font-size: 1.5rem;
+      background: rgba(0, 255, 136, 0.10);
+      border: 1px solid rgba(0, 255, 136, 0.30);
+      color: var(--green);
+      font-size: 1.45rem;
+      box-shadow: inset 0 0 18px rgba(0, 255, 136, 0.07);
     }
 
     .card h3 {
-      font-size: 1.6rem;
+      font-size: 1.45rem;
+      color: var(--green);
+      text-transform: uppercase;
     }
 
     .card p {
-      color: var(--muted);
+      color: #a8d8bc;
       line-height: 1.65;
-      font-size: 1.03rem;
+      font-size: 1rem;
       margin-bottom: 22px;
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 28px;
+      gap: 9px;
+      margin-bottom: 26px;
     }
 
     .tag {
-      padding: 8px 13px;
-      border-radius: 12px;
-      color: #aab6d3;
-      background: rgba(109, 140, 255, 0.11);
-      font-family: Consolas, monospace;
-      font-size: 0.86rem;
+      padding: 7px 11px;
+      border-radius: 3px;
+      color: var(--green);
+      background: rgba(0, 255, 136, 0.07);
+      border: 1px solid rgba(0, 255, 136, 0.18);
+      font-size: 0.82rem;
     }
 
-    .repo-btn {
-      display: inline-flex;
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 28px;
       align-items: center;
-      color: #b7c1dc;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 15px;
+      margin-top: 24px;
+    }
+
+    .contact-list a {
+      color: var(--green);
       text-decoration: none;
-      padding: 12px 18px;
-      border-radius: 15px;
-      background: rgba(109, 140, 255, 0.12);
-      font-weight: 700;
+      overflow-wrap: anywhere;
     }
 
-    .repo-btn:hover {
-      color: white;
-      background: rgba(109, 140, 255, 0.22);
+    .contact-list a:hover {
+      text-decoration: underline;
     }
 
-    @media (max-width: 1000px) {
+    .button-row {
+      display: flex;
+      gap: 13px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    footer {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 32px 42px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 1050px) {
       .grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .about-wrap,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
-    @media (max-width: 680px) {
+    @media (max-width: 760px) {
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
       .grid {
         grid-template-columns: 1fr;
       }
 
-      .nav-inner {
-        flex-direction: column;
-        gap: 12px;
-        padding: 16px;
+      .section {
+        padding-left: 20px;
+        padding-right: 20px;
       }
 
-      .navbar {
-        height: auto;
+      .section-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .terminal-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero {
+        padding-top: 55px;
       }
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-
+    @keyframes blink {
       50% {
-        transform: translateY(-22px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes sweep {
+      0% {
+        left: -70%;
+      }
+      55%, 100% {
+        left: 120%;
+      }
+    }
+
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(-3px, 3px);
+      }
+      40% {
+        transform: translate(-3px, -2px);
+      }
+      60% {
+        transform: translate(3px, 2px);
+      }
+      80% {
+        transform: translate(2px, -3px);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+
+    @keyframes glitch-skew {
+      0% {
+        transform: skew(0deg);
+      }
+      42% {
+        transform: skew(0deg);
+      }
+      43% {
+        transform: skew(1.5deg);
+      }
+      44% {
+        transform: skew(-1deg);
+      }
+      45% {
+        transform: skew(0deg);
+      }
+      100% {
+        transform: skew(0deg);
       }
     }
   </style>
 </head>
 
 <body>
-
+  <canvas id="matrix"></canvas>
   <div class="noise"></div>
 
-  <nav class="navbar">
-    <div class="nav-inner">
-      <a href="#" class="logo">&lt;Navidoo Lounge /&gt;</a>
+  <div class="page">
+    <nav class="navbar">
+      <div class="nav-inner">
+        <a href="#home" class="logo">Navidoo Terminal</a>
 
-      <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
-        <a href="#home" class="nav-button">⌂ Home</a>
-        <a href="#projects" class="nav-button">💻 Projekte</a>
-        <a href="#about" class="nav-button">👤 About</a>
-        <a href="#contact" class="nav-button">✉ Kontakt</a>
-        <a href="https://github.com/Amirirun" target="_blank" class="nav-button">💻 GitHub</a>
-      </div>
-    </div>
-  </nav>
-
-  <header class="hero" id="home">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-
-    <div class="hero-content">
-      <div class="badge">
-        <span>&gt;_</span>
-        Ein Einblick in <span>Navids</span> Programmierhöhle
-      </div>
-
-      <h1><span class="gradient-text">Meine</span> Projekte</h1>
-
-      <p>
-        Eine Sammlung von Projekten aus meiner Lernreise als Entwickler — von Games
-        über Web-Tools bis hin zu kreativen Coding-Experimenten.
-      </p>
-
-      <div class="stats">
-        <div>&lt;/&gt; <span>5 Projekte</span></div>
-        <div class="dot"></div>
-        <div>C#, Python, Godot & JavaScript</div>
-      </div>
-    </div>
-  </header>
-
-  <section id="about" style="max-width:1400px;margin:0 auto;padding:40px 32px 90px;">
-    <div style="border:1px solid rgba(109,140,255,0.18);background:rgba(12,18,34,0.7);border-radius:28px;padding:40px;">
-      <div style="display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between;">
-        <div>
-          <div class="badge">⚡ Mein Leitsatz</div>
-          <h2 style="font-size:clamp(2.6rem,5vw,4.5rem);line-height:1;">
-            Navid Amiri —<br>
-            <span class="gradient-text">ihr nächster Praktikant.</span>
-          </h2>
-
-          <div style="margin-top:25px;">
-            <a href="https://github.com/Amirirun" target="_blank" class="repo-btn">
-              💻 Mein GitHub Profil ↗
-            </a>
-          </div>
-        </div>
-
-        <div style="width:240px;height:240px;border-radius:30px;background:linear-gradient(135deg, rgba(109,140,255,0.28), rgba(139,92,246,0.18));display:grid;place-items:center;font-size:5rem;">
-          ⚡
+        <div class="nav-links">
+          <a href="#home" class="nav-button">./home</a>
+          <a href="#projects" class="nav-button">./projects</a>
+          <a href="#about" class="nav-button">./about</a>
+          <a href="#contact" class="nav-button">./contact</a>
+          <a href="https://github.com/Amirirun" target="_blank" rel="noopener noreferrer" class="nav-button">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/navid-amiri-077437229/" target="_blank" rel="noopener noreferrer" class="nav-button">LinkedIn ↗</a>
         </div>
       </div>
-    </div>
-  </section>
+    </nav>
 
-  <main class="projects" id="projects">
-    <div class="section-top">
-      <h2>Projektübersicht</h2>
-    </div>
-
-    <section class="grid">
-
-      <article class="card">
-        <div class="preview" style="background-image:url('images/tictactoe.png');"></div>
-        <div class="card-body">
-          <div class="card-title">
-            <div class="icon-box">🎮</div>
-            <h3>TicTacToe</h3>
+    <header class="hero" id="home">
+      <div class="hero-content">
+        <div class="terminal-top">
+          <div class="terminal-dots">
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
-          <p>Tic-Tac-Toe mit epischem Design — entwickelt in C# mit WinForms.</p>
-          <div class="tags">
-            <span class="tag">C#</span>
-            <span class="tag">WinForms</span>
-          </div>
-          <a href="https://github.com/Amirirun/Lernperiode-4" target="_blank" class="repo-btn">GitHub Repository ↗</a>
+          <div>session: portfolio.exe // status: online</div>
         </div>
-      </article>
 
-      <article class="card">
-        <div class="preview" style="background-image:url('images/snake.png');"></div>
-        <div class="card-body">
-          <div class="card-title">
-            <div class="icon-box">🐍</div>
-            <h3>Snake</h3>
-          </div>
-          <p>Snake mit Godot Engine entwickelt und mit einer SQLite-Datenbank verbunden.</p>
-          <div class="tags">
-            <span class="tag">Godot</span>
-            <span class="tag">GDScript</span>
-            <span class="tag">SQLite</span>
-          </div>
-          <a href="https://github.com/Amirirun/Lern-Periode-9" target="_blank" class="repo-btn">GitHub Repository ↗</a>
+        <div class="badge">
+          <span>&gt;_</span>
+          Zugriff auf <span>Navids</span> Developer-Portfolio
         </div>
-      </article>
 
-      <article class="card">
-        <div class="preview" style="background-image:url('images/battle-arena.png');"></div>
-        <div class="card-body">
-          <div class="card-title">
-            <div class="icon-box">⚔️</div>
-            <h3>Battle Arena</h3>
-          </div>
-          <p>Konsolen-Fighting-Game in C# — kämpfe gegen Gegner in einer rundenbasierten Arena.</p>
-          <div class="tags">
-            <span class="tag">C#</span>
-            <span class="tag">Konsole</span>
-            <span class="tag">OOP</span>
-          </div>
-          <a href="https://github.com/Amirirun/Lernperiode-6" target="_blank" class="repo-btn">GitHub Repository ↗</a>
+        <h1 class="glitch" data-text="Meine Projekte">Meine Projekte</h1>
+
+        <p>
+          <span class="prompt">root@navidoo:~$</span>
+          Eine Sammlung meiner Coding-Projekte: Games, Web-Tools,
+          Machine Learning und kreative Experimente.
+          <span class="cursor">█</span>
+        </p>
+
+        <div class="stats">
+          <div class="stat-pill">&lt;/&gt; 5 Projekte geladen</div>
+          <div class="stat-pill">C# // Python // Godot // JavaScript</div>
+          <div class="stat-pill">ACCESS GRANTED</div>
         </div>
-      </article>
 
-      <article class="card">
-        <div class="preview" style="background-image:url('images/big-crypt.png');"></div>
-        <div class="card-body">
-          <div class="card-title">
-            <div class="icon-box">₿</div>
-            <h3>Big Crypt</h3>
-          </div>
-          <p>Crypto-App mit CoinCap.io API — zeigt Live-Preise, 24h-Veränderung und Charts.</p>
-          <div class="tags">
-            <span class="tag">JavaScript</span>
-            <span class="tag">HTML/CSS</span>
-            <span class="tag">CoinCap API</span>
-          </div>
-          <a href="https://github.com/Amirirun/Lern-Periode-7/tree/main" target="_blank" class="repo-btn">GitHub Repository ↗</a>
+        <div class="button-row" style="justify-content:center;">
+          <a href="https://github.com/Amirirun" target="_blank" rel="noopener noreferrer" class="repo-btn">GitHub öffnen ↗</a>
+          <a href="https://www.linkedin.com/in/navid-amiri-077437229/" target="_blank" rel="noopener noreferrer" class="repo-btn">LinkedIn öffnen ↗</a>
         </div>
-      </article>
+      </div>
+    </header>
 
-      <article class="card">
-        <div class="preview" style="background-image:url('images/stress-level.png');"></div>
-        <div class="card-body">
-          <div class="card-title">
-            <div class="icon-box">🧠</div>
-            <h3>Stress-Level Predictor</h3>
-          </div>
-          <p>Ein Machine-Learning-Modell, das anhand von Lebensstil-Faktoren das Stresslevel vorhersagt.</p>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">ML</span>
-            <span class="tag">Pandas</span>
-          </div>
-          <a href="https://github.com/Amirirun/smartphone-screentime-stress" target="_blank" class="repo-btn">GitHub Repository ↗</a>
+    <section id="about" class="section">
+      <div class="terminal-panel">
+        <div class="panel-header">
+          <span>about_navid.sh</span>
+          <span class="muted">encrypted_identity=true</span>
         </div>
-      </article>
 
+        <div class="panel-body about-wrap">
+          <div>
+            <div class="badge"><span>⚡</span> Mein Leitsatz</div>
+
+            <div class="terminal-line">
+              <span class="prompt">$ whoami</span><br>
+              Navid Amiri — <strong>ihr nächster Praktikant.</strong>
+            </div>
+
+            <div class="terminal-line" style="margin-top:18px;">
+              <span class="prompt">$ cat skills.txt</span><br>
+              C# • Python • JavaScript • HTML/CSS • Godot • Machine Learning • Datenbanken
+            </div>
+
+            <div class="terminal-line" style="margin-top:18px;">
+              <span class="prompt">$ echo mission</span><br>
+              Projekte bauen, Probleme lösen und jeden Tag besser programmieren.
+            </div>
+
+            <div class="button-row">
+              <a href="https://github.com/Amirirun" target="_blank" rel="noopener noreferrer" class="repo-btn">GitHub Profil ↗</a>
+              <a href="https://www.linkedin.com/in/navid-amiri-077437229/" target="_blank" rel="noopener noreferrer" class="repo-btn">LinkedIn Profil ↗</a>
+            </div>
+          </div>
+
+          <div class="avatar-terminal" aria-label="Coding Symbol"></div>
+        </div>
+      </div>
     </section>
-  </main>
 
-    <section id="contact" style="max-width:1400px;margin:0 auto;padding:0 32px 120px;">
-    <div style="border-radius:32px;padding:60px 40px;background:linear-gradient(135deg, rgba(109,140,255,0.18), rgba(139,92,246,0.12));border:1px solid rgba(109,140,255,0.22);">
-
-      <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:center;">
-
-        <div>
-          <div class="badge">📬 Kontakt</div>
-
-          <h2 style="font-size:clamp(2.4rem,5vw,4.5rem);line-height:1;margin-bottom:20px;">
-            Navid Amiri
-          </h2>
-
-          <p style="color:#b6c0da;font-size:1.1rem;line-height:2;">
-            💻 GitHub:
-            <a href="https://github.com/Amirirun"
-               target="_blank"
-               style="color:#6d8cff;text-decoration:none;">
-               github.com/Amirirun
-            </a>
-          </p>
-
-          <p style="color:#b6c0da;font-size:1.1rem;line-height:2;">
-            ✉ E-Mail:
-            <a href="mailto:Navidoo.Amiri@gmail.com"
-               style="color:#6d8cff;text-decoration:none;">
-               Navidoo.Amiri@gmail.com
-            </a>
-          </p>
-        </div>
-
-        <div style="display:flex;gap:15px;flex-wrap:wrap;">
-
-          <a href="https://github.com/Amirirun"
-             target="_blank"
-             class="repo-btn">
-            💻 GitHub Profil ↗
-          </a>
-
-          <a href="mailto:Navidoo.Amiri@gmail.com"
-             class="repo-btn">
-            ✉ E-Mail senden ↗
-          </a>
-
-        </div>
-
+    <main class="section" id="projects">
+      <div class="section-top">
+        <h2>Projektübersicht</h2>
+        <p>
+          Jedes Projekt ist wie ein eigener Terminal-Befehl: starten, testen,
+          verbessern und weiterentwickeln.
+        </p>
       </div>
 
-    </div>
-  </section>
+      <section class="grid">
+        <article class="card">
+          <div class="preview" data-code="$ start tictactoe.exe&#10;loading WinForms UI...&#10;player_1 = X&#10;player_2 = O&#10;status: ready"></div>
+          <div class="card-body">
+            <div class="card-title">
+              <div class="icon-box">🎮</div>
+              <h3>TicTacToe</h3>
+            </div>
+            <p>Tic-Tac-Toe mit starkem Design — entwickelt in C# mit WinForms.</p>
+            <div class="tags">
+              <span class="tag">C#</span>
+              <span class="tag">WinForms</span>
+              <span class="tag">Game</span>
+            </div>
+            <a href="https://github.com/Amirirun/Lernperiode-4" target="_blank" rel="noopener noreferrer" class="repo-btn">Repository öffnen ↗</a>
+          </div>
+        </article>
 
+        <article class="card">
+          <div class="preview" data-code="$ run snake.gd&#10;engine: Godot&#10;database: SQLite connected&#10;score_table: active&#10;status: online"></div>
+          <div class="card-body">
+            <div class="card-title">
+              <div class="icon-box">🐍</div>
+              <h3>Snake</h3>
+            </div>
+            <p>Snake mit Godot Engine entwickelt und mit einer SQLite-Datenbank verbunden.</p>
+            <div class="tags">
+              <span class="tag">Godot</span>
+              <span class="tag">GDScript</span>
+              <span class="tag">SQLite</span>
+            </div>
+            <a href="https://github.com/Amirirun/Lern-Periode-9" target="_blank" rel="noopener noreferrer" class="repo-btn">Repository öffnen ↗</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="preview" data-code="$ launch arena.cs&#10;enemy_detected=true&#10;round_system=active&#10;oop_classes=loaded&#10;status: fight"></div>
+          <div class="card-body">
+            <div class="card-title">
+              <div class="icon-box">⚔️</div>
+              <h3>Battle Arena</h3>
+            </div>
+            <p>Konsolen-Fighting-Game in C# — kämpfe gegen Gegner in einer rundenbasierten Arena.</p>
+            <div class="tags">
+              <span class="tag">C#</span>
+              <span class="tag">Konsole</span>
+              <span class="tag">OOP</span>
+            </div>
+            <a href="https://github.com/Amirirun/Lernperiode-6" target="_blank" rel="noopener noreferrer" class="repo-btn">Repository öffnen ↗</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="preview" data-code="$ fetch crypto_api&#10;source: CoinCap.io&#10;prices: live&#10;charts: rendering&#10;status: synced"></div>
+          <div class="card-body">
+            <div class="card-title">
+              <div class="icon-box">₿</div>
+              <h3>Big Crypt</h3>
+            </div>
+            <p>Crypto-App mit CoinCap.io API — zeigt Live-Preise, 24h-Veränderung und Charts.</p>
+            <div class="tags">
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">API</span>
+            </div>
+            <a href="https://github.com/Amirirun/Lern-Periode-7/tree/main" target="_blank" rel="noopener noreferrer" class="repo-btn">Repository öffnen ↗</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="preview" data-code="$ train model.py&#10;dataset: lifestyle.csv&#10;features: loaded&#10;pandas: active&#10;prediction: stress_level"></div>
+          <div class="card-body">
+            <div class="card-title">
+              <div class="icon-box">🧠</div>
+              <h3>Stress-Level Predictor</h3>
+            </div>
+            <p>Ein Machine-Learning-Modell, das anhand von Lebensstil-Faktoren das Stresslevel vorhersagt.</p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">ML</span>
+              <span class="tag">Pandas</span>
+            </div>
+            <a href="https://github.com/Amirirun/smartphone-screentime-stress" target="_blank" rel="noopener noreferrer" class="repo-btn">Repository öffnen ↗</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <section id="contact" class="section">
+      <div class="terminal-panel">
+        <div class="panel-header">
+          <span>contact.init</span>
+          <span class="muted">secure_connection_established</span>
+        </div>
+
+        <div class="panel-body contact-grid">
+          <div>
+            <div class="badge"><span>📬</span> Kontakt</div>
+
+            <h2 style="font-size:clamp(2.4rem,5vw,4.4rem);line-height:1;color:var(--green);text-shadow:0 0 20px var(--shadow);">
+              Navid Amiri
+            </h2>
+
+            <div class="contact-list">
+              <p>
+                <span class="prompt">github:</span>
+                <a href="https://github.com/Amirirun" target="_blank" rel="noopener noreferrer">github.com/Amirirun</a>
+              </p>
+              <p>
+                <span class="prompt">linkedin:</span>
+                <a href="https://www.linkedin.com/in/navid-amiri-077437229/" target="_blank" rel="noopener noreferrer">linkedin.com/in/navid-amiri-077437229</a>
+              </p>
+              <p>
+                <span class="prompt">email:</span>
+                <a href="mailto:Navidoo.Amiri@gmail.com">Navidoo.Amiri@gmail.com</a>
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p class="terminal-line">
+              <span class="prompt">$ send_message --to navid</span><br>
+              Bereit für Praktikum, Projekte und neue Coding-Challenges.
+              <span class="cursor">█</span>
+            </p>
+
+            <div class="button-row">
+              <a href="https://github.com/Amirirun" target="_blank" rel="noopener noreferrer" class="repo-btn">GitHub ↗</a>
+              <a href="https://www.linkedin.com/in/navid-amiri-077437229/" target="_blank" rel="noopener noreferrer" class="repo-btn">LinkedIn ↗</a>
+              <a href="mailto:Navidoo.Amiri@gmail.com" class="repo-btn">E-Mail ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Navidoo Terminal // coded with C#, Python &amp; caffeine</p>
+    </footer>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+
+    const chars = "01{}[]<>/\\#$%&ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const fontSize = 15;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.075)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#00ff88";
+      ctx.font = fontSize + "px Consolas, monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.976) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 42);
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(1);
+    });
+  </script>
 </body>
 </html>
